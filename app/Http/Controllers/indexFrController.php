@@ -15,7 +15,13 @@ class indexFrController extends Controller
     {
         $services = Services::all();
         $portfolios = Portfolios::all();
-        $abouts = Abouts::first();
+        $abouts = Abouts::firstOrCreate([], [
+            'top_title' => 'Default Top Title',
+            'title' => 'Default Title',
+            'top_desc' => 'This is a short top description.',
+            'description' => 'This is the detailed default description of the About section.'
+        ]);
+
         $clients = Clients::all();
         $sliders = Sliders::all();
         return view('Company.index', compact('sliders', 'clients', 'abouts', 'portfolios', 'services'));
